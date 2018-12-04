@@ -7,7 +7,10 @@
 
 package org.usfirst.frc.team4299.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,7 +26,16 @@ public class Robot extends IterativeRobot {
 	private static final String kCustomAuto = "My Auto";
 	private String m_autoSelected;
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
-
+    
+	Spark left=new Spark(0);
+	Spark right=new Spark(1);
+	
+	
+	
+XboxController controller = new XboxController(5);
+	
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -66,15 +78,21 @@ public class Robot extends IterativeRobot {
 			case kDefaultAuto:
 			default:
 				// Put default auto code here
-				break;
+			break;	
 		}
 	}
-
 	/**
 	 * This function is called periodically during operator control.
 	 */
+	
 	@Override
 	public void teleopPeriodic() {
+	
+		double LeftSpeed = controller.getY(Hand.kLeft);
+		double RightSpeed = controller.getY(Hand.kRight);
+			 
+		left.setSpeed(LeftSpeed);
+		right.setSpeed(RightSpeed);
 	}
 
 	/**
